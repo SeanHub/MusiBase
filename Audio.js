@@ -1,6 +1,10 @@
 function xAudio() {
 	var audio = new Audio(),
+		eventcanplay,
+		eventended,
 		eventerror,
+		eventpause,
+		eventplay,
 		eventtimeupdate;
 
 	var addEventListener = function(event, fn){
@@ -19,6 +23,12 @@ function xAudio() {
 		audio.load();
 	};
 
+	var oncanplay = function(fn){
+		removeEventListener("canplay", eventcanplay);
+		addEventListener("canplay", fn);
+		eventcanplay = fn;
+	};
+
 	var onend = function(fn){
 		removeEventListener("ended", eventended);
 		addEventListener("ended", fn);
@@ -29,6 +39,18 @@ function xAudio() {
 		removeEventListener("error", eventerror);
 		addEventListener("error", fn);
 		eventerror = fn;
+	};
+
+	var onpause = function(fn){
+		removeEventListener("pause", eventpause);
+		addEventListener("pause", fn);
+		eventpause = fn;
+	};
+
+	var onplay = function(fn){
+		removeEventListener("play", eventplay);
+		addEventListener("play", fn);
+		eventplay = fn;
 	};
 
 	var ontimeupdate = function(fn){
@@ -62,5 +84,5 @@ function xAudio() {
 		audio.volume = volume;
 	};
 
-	return { getCurrentTime:getCurrentTime, getDuration:getDuration, onend:onend, onerror:onerror, ontimeupdate:ontimeupdate, play:play, pause:pause, setCurrentTime:setCurrentTime, setSource:setSource, setVolume:setVolume };
+	return { getCurrentTime:getCurrentTime, getDuration:getDuration, oncanplay:oncanplay, onend:onend, onerror:onerror, onpause:onpause, onplay:onplay, ontimeupdate:ontimeupdate, play:play, pause:pause, setCurrentTime:setCurrentTime, setSource:setSource, setVolume:setVolume };
 }
