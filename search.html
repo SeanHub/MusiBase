@@ -1,15 +1,17 @@
 <h1 id="title_search"></h1>
 <div id="container_searchresults"></div>
 <script type="text/javascript">
+var mediator = new Mediator(),
+	element = new xElement();
 document.getElementById("title_search").innerText = location.search;
 
 mediator.search(document.getElementById("input_search").value, function(data){
-			element.removeContents(document.getElementById("container_searchresults"));
-			JSON.parse(data).songs.forEach(function(song){
-				document.getElementById("container_searchresults").appendChild(element.addElement("div", song.title));
-			});
-		},
-		function(){
-			document.getElementById("container_searchresults").innerText = "loading";
-		});
+	element.removeContents(document.getElementById("container_searchresults"));
+	JSON.parse(data).songs.forEach(function(song){
+		document.getElementById("container_searchresults").appendChild(element.addElement("div", song.title));
+	});
+},
+function(){
+	document.getElementById("container_searchresults").innerText = "loading";
+});
 </script>

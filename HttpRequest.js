@@ -5,7 +5,13 @@ function HttpRequest() {
 		onwait();
 		xmlHttpRequest.onreadystatechange = function(){
 			if(xmlHttpRequest.readyState === 4){
-				onresponse(xmlHttpRequest.responseText);
+				if(xmlHttpRequest.status === 200){
+					console.log(xmlHttpRequest);
+					onresponse(xmlHttpRequest.responseText);
+				}
+				else {
+					onresponse("failed");
+				}
 			}
 		}
 		xmlHttpRequest.send();
